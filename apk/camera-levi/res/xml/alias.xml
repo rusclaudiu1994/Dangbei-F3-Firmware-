@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<alias xmlns:android="http://schemas.android.com/apk/res/android">
+    <intent android:action="android.intent.action.VIEW" android:data="http://127.0.0.1:8099/camera" android:targetPackage="com.brave.browser"/>
+</alias>

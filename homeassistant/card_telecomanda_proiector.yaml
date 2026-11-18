@@ -1,0 +1,324 @@
+type: vertical-stack
+cards:
+  - type: media-control
+    entity: media_player.proiector
+  - type: grid
+    columns: 4
+    square: false
+    title: telecomandă proiector
+    cards:
+      - type: button
+        name: pornit
+        icon: mdi:power
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 26"
+      - type: button
+        name: home
+        icon: mdi:home
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 3"
+      - type: button
+        name: înapoi
+        icon: mdi:arrow-left
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 4"
+      - type: button
+        name: meniu
+        icon: mdi:menu
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 82"
+  - type: grid
+    columns: 3
+    square: false
+    cards:
+      - type: button
+        name: " "
+        icon: mdi:blank
+        tap_action:
+          action: none
+      - type: button
+        name: sus
+        icon: mdi:chevron-up
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 19"
+      - type: button
+        name: " "
+        icon: mdi:blank
+        tap_action:
+          action: none
+      - type: button
+        name: stânga
+        icon: mdi:chevron-left
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 21"
+      - type: button
+        name: ok
+        icon: mdi:circle-medium
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 23"
+      - type: button
+        name: dreapta
+        icon: mdi:chevron-right
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 22"
+      - type: button
+        name: " "
+        icon: mdi:blank
+        tap_action:
+          action: none
+      - type: button
+        name: jos
+        icon: mdi:chevron-down
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 20"
+      - type: button
+        name: " "
+        icon: mdi:blank
+        tap_action:
+          action: none
+  - type: grid
+    columns: 3
+    square: false
+    cards:
+      - type: button
+        name: vol -
+        icon: mdi:volume-minus
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 25"
+      - type: button
+        name: mut
+        icon: mdi:volume-mute
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 164"
+      - type: button
+        name: vol +
+        icon: mdi:volume-plus
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 24"
+  - type: grid
+    columns: 3
+    square: false
+    title: mouse (săgețile de sus = pas mic)
+    cards:
+      - type: button
+        name: mouse pornit
+        icon: mdi:cursor-default
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "am startservice -a intent.action.START_MOUSE -n com.dangs.mouse/.service.FloatService"
+      - type: button
+        name: click
+        icon: mdi:mouse
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 23"
+      - type: button
+        name: mouse oprit
+        icon: mdi:cursor-default-outline
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "am stopservice -n com.dangs.mouse/.service.FloatService"
+  - type: grid
+    columns: 3
+    square: false
+    cards:
+      - type: button
+        name: " "
+        icon: mdi:blank
+        tap_action:
+          action: none
+      - type: button
+        name: sus x5
+        icon: mdi:chevron-double-up
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 19 19 19 19 19"
+      - type: button
+        name: " "
+        icon: mdi:blank
+        tap_action:
+          action: none
+      - type: button
+        name: stânga x5
+        icon: mdi:chevron-double-left
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 21 21 21 21 21"
+      - type: button
+        name: click
+        icon: mdi:mouse
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 23"
+      - type: button
+        name: dreapta x5
+        icon: mdi:chevron-double-right
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 22 22 22 22 22"
+      - type: button
+        name: " "
+        icon: mdi:blank
+        tap_action:
+          action: none
+      - type: button
+        name: jos x5
+        icon: mdi:chevron-double-down
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "input keyevent 20 20 20 20 20"
+      - type: button
+        name: " "
+        icon: mdi:blank
+        tap_action:
+          action: none
+  - type: grid
+    columns: 3
+    square: false
+    title: aplicații
+    cards:
+      - type: button
+        name: smarttube
+        icon: mdi:youtube
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "monkey -p org.smarttube.stable -c android.intent.category.LEANBACK_LAUNCHER 1"
+      - type: button
+        name: netflix
+        icon: mdi:netflix
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "monkey -p com.netflix.mediaclient -c android.intent.category.LAUNCHER 1"
+      - type: button
+        name: brave
+        icon: mdi:web
+        show_state: false
+        tap_action:
+          action: perform-action
+          perform_action: androidtv.adb_command
+          target:
+            entity_id: media_player.proiector
+          data:
+            command: "monkey -p com.brave.browser -c android.intent.category.LAUNCHER 1"

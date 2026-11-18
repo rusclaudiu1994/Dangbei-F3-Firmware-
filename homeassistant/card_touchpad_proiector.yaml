@@ -1,0 +1,50 @@
+type: custom:universal-remote-card
+media_player_id: media_player.proiector
+rows:
+  - - mouse_pornit
+    - mouse_oprit
+  - - touchpad
+custom_actions:
+  - type: button
+    name: mouse_pornit
+    icon: mdi:cursor-default
+    label: mouse pornit
+    tap_action: &mouse_on
+      action: perform-action
+      perform_action: androidtv.adb_command
+      target: {entity_id: media_player.proiector}
+      data: {command: am startservice -a intent.action.START_MOUSE -n com.dangs.mouse/.service.FloatService}
+  - type: button
+    name: mouse_oprit
+    icon: mdi:cursor-default-outline
+    label: mouse oprit
+    tap_action:
+      action: perform-action
+      perform_action: androidtv.adb_command
+      target: {entity_id: media_player.proiector}
+      data: {command: am stopservice -n com.dangs.mouse/.service.FloatService}
+  - type: touchpad
+    name: touchpad
+    tap_action:
+      action: perform-action
+      perform_action: androidtv.adb_command
+      target: {entity_id: media_player.proiector}
+      data: {command: input keyevent 23}
+    double_tap_action:
+      action: perform-action
+      perform_action: androidtv.adb_command
+      target: {entity_id: media_player.proiector}
+      data: {command: input keyevent 4}
+    hold_action: *mouse_on
+    up:
+      tap_action: {action: perform-action, perform_action: androidtv.adb_command, target: {entity_id: media_player.proiector}, data: {command: input keyevent 19}}
+      hold_action: {action: repeat}
+    down:
+      tap_action: {action: perform-action, perform_action: androidtv.adb_command, target: {entity_id: media_player.proiector}, data: {command: input keyevent 20}}
+      hold_action: {action: repeat}
+    left:
+      tap_action: {action: perform-action, perform_action: androidtv.adb_command, target: {entity_id: media_player.proiector}, data: {command: input keyevent 21}}
+      hold_action: {action: repeat}
+    right:
+      tap_action: {action: perform-action, perform_action: androidtv.adb_command, target: {entity_id: media_player.proiector}, data: {command: input keyevent 22}}
+      hold_action: {action: repeat}

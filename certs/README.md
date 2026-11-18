@@ -1,0 +1,1 @@
+certificatele rădăcină lets encrypt în formatul android (`subject_hash_old` + `.0`): `6187b673.0` = isrg root x1, `8794b4e3.0` = isrg root x2. se pun în `/system/etc/security/cacerts/` cu `chmod 644`.
