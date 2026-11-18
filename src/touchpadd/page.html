@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>touchpad proiector</title><style>
+html,body{margin:0;height:100%;background:#1c1c1e;font-family:sans-serif;color:#aaa;user-select:none;-webkit-user-select:none;touch-action:none;overflow:hidden}
+#w{display:flex;flex-direction:column;height:100%;padding:10px;box-sizing:border-box;gap:8px}
+#pad{flex:1;border-radius:16px;background:#2c2c2e;box-shadow:inset 0 0 0 1px #3a3a3c;position:relative}
+#pad span{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:12px;opacity:.5}
+#btns{display:flex;gap:8px;height:64px}
+.b{flex:1;border-radius:12px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;font-size:15px;color:#ddd}
+.b.on{background:#5a5a5e}#st{font-size:11px;text-align:center;height:14px}
+</style></head><body><div id="w"><div id="pad"><span>1 deget = mișcare · atingere = click · 2 degete = scroll · atingere cu 2 = click dreapta</span></div>
+<div id="btns"><div class="b" id="bl">stânga</div><div class="b" id="br">dreapta</div></div><div class="b" id="tg" style="height:44px;flex:none">mouse: ...</div><div id="st"></div></div>
+<script>
+let q=[],dx=0,dy=0,wh=0,busy=false;const st=document.getElementById('st');
+function flush(){if(busy)return;let e=q.splice(0);if(dx||dy){e.unshift('m,'+Math.round(dx)+','+Math.round(dy));dx-=Math.round(dx);dy-=Math.round(dy);}
+if(Math.abs(wh)>=1){let n=Math.trunc(wh);e.push('w,'+n);wh-=n;}if(!e.length)return;busy=true;
+fetch('/e?q='+e.join(';'),{cache:'no-store'}).then(()=>{st.textContent=''}).catch(()=>{st.textContent='fără conexiune cu proiectorul'}).finally(()=>{busy=false});}
+setInterval(flush,20);
+const pad=document.getElementById('pad');let pts={},moved=false,t0=0,maxp=0,lx=0,ly=0,sy=0;
+function acc(v){let a=Math.abs(v);return v*(a<2?1.2:a<6?2:a<14?3:4.5);}
+pad.addEventListener('pointerdown',e=>{pad.setPointerCapture(e.pointerId);pts[e.pointerId]={x:e.clientX,y:e.clientY};let n=Object.keys(pts).length;maxp=Math.max(maxp,n);if(n===1){moved=false;t0=Date.now();maxp=1;}});
+pad.addEventListener('pointermove',e=>{let p=pts[e.pointerId];if(!p)return;let mx=e.clientX-p.x,my=e.clientY-p.y;p.x=e.clientX;p.y=e.clientY;
+let n=Object.keys(pts).length;if(Math.abs(mx)+Math.abs(my)>1)moved=true;
+if(n===1){dx+=acc(mx);dy+=acc(my);}else if(n===2){wh-=my/18;}});
+function up(e){if(!pts[e.pointerId])return;delete pts[e.pointerId];if(Object.keys(pts).length===0){if(!moved&&Date.now()-t0<300){q.push(maxp>=2?'c,r':'c,l');}}}
+pad.addEventListener('pointerup',up);pad.addEventListener('pointercancel',up);
+function hold(id,b){const el=document.getElementById(id);el.addEventListener('pointerdown',e=>{el.setPointerCapture(e.pointerId);el.classList.add('on');q.push('b,'+b+',1');});
+const r=()=>{if(!el.classList.contains('on'))return;el.classList.remove('on');q.push('b,'+b+',0');};el.addEventListener('pointerup',r);el.addEventListener('pointercancel',r);}
+hold('bl','l');
+const tg=document.getElementById('tg');let on=true;function show(s){on=(s==='on');tg.textContent=on?'mouse pornit (apasă pentru oprire)':'mouse oprit (apasă pentru pornire)';tg.style.background=on?'#2e5b34':'#6b2626';pad.style.opacity=on?1:.35;}
+function ref(){fetch('/state',{cache:'no-store'}).then(r=>r.text()).then(show).catch(()=>{});}ref();setInterval(ref,3000);
+tg.addEventListener('click',()=>{fetch(on?'/off':'/on',{cache:'no-store'}).then(r=>r.text()).then(show);});hold('br','r');document.addEventListener('contextmenu',e=>e.preventDefault());
+</script></body></html>

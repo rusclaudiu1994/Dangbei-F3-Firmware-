@@ -1,0 +1,6 @@
+token.txt
+*.img
+backup/
+proiector_log*.txt
+md5_proiector.txt
+*.png.bak
